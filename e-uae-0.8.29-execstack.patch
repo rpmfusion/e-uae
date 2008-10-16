@@ -1,0 +1,82 @@
+Only in e-uae-0.8.29-WIP4: autom4te.cache
+diff -dur e-uae-0.8.29-WIP4.orig/configure e-uae-0.8.29-WIP4/configure
+--- e-uae-0.8.29-WIP4.orig/configure	2007-03-28 06:20:21.000000000 +0200
++++ e-uae-0.8.29-WIP4/configure	2008-08-15 10:27:51.000000000 +0200
+@@ -18154,57 +18154,6 @@
+   fi
+   { echo "$as_me:$LINENO: result: yes" >&5
+ echo "${ECHO_T}yes" >&6; }
+-
+-  { echo "$as_me:$LINENO: checking whether assembler supports --execstack option" >&5
+-echo $ECHO_N "checking whether assembler supports --execstack option... $ECHO_C" >&6; }
+-  SAVE_CFLAGS="$CFLAGS"
+-  CFLAGS="-Wa,--execstack $CFLAGS"
+-  cat >conftest.$ac_ext <<_ACEOF
+-/* confdefs.h.  */
+-_ACEOF
+-cat confdefs.h >>conftest.$ac_ext
+-cat >>conftest.$ac_ext <<_ACEOF
+-/* end confdefs.h.  */
+-
+-int
+-main ()
+-{
+-int main (void) {return 0;}
+-  ;
+-  return 0;
+-}
+-_ACEOF
+-rm -f conftest.$ac_objext
+-if { (ac_try="$ac_compile"
+-case "(($ac_try" in
+-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+-  *) ac_try_echo=$ac_try;;
+-esac
+-eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+-  (eval "$ac_compile") 2>conftest.er1
+-  ac_status=$?
+-  grep -v '^ *+' conftest.er1 >conftest.err
+-  rm -f conftest.er1
+-  cat conftest.err >&5
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); } && {
+-	 test -z "$ac_c_werror_flag" ||
+-	 test ! -s conftest.err
+-       } && test -s conftest.$ac_objext; then
+-  { echo "$as_me:$LINENO: result: yes" >&5
+-echo "${ECHO_T}yes" >&6; }
+-    UAE_CFLAGS="-Wa,--execstack $UAE_CFLAGS"
+-else
+-  echo "$as_me: failed program was:" >&5
+-sed 's/^/| /' conftest.$ac_ext >&5
+-
+-	{ echo "$as_me:$LINENO: result: no" >&5
+-echo "${ECHO_T}no" >&6; }
+-
+-fi
+-
+-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+-  CFLAGS="$SAVE_CFLAGS"
+ else
+   { echo "$as_me:$LINENO: result: no" >&5
+ echo "${ECHO_T}no" >&6; }
+diff -dur e-uae-0.8.29-WIP4.orig/configure.in e-uae-0.8.29-WIP4/configure.in
+--- e-uae-0.8.29-WIP4.orig/configure.in	2007-03-28 03:41:28.000000000 +0200
++++ e-uae-0.8.29-WIP4/configure.in	2008-08-15 10:25:42.000000000 +0200
+@@ -762,16 +762,6 @@
+     fi
+   fi
+   AC_MSG_RESULT(yes)
+-
+-  AC_MSG_CHECKING([whether assembler supports --execstack option])
+-  SAVE_CFLAGS="$CFLAGS"
+-  CFLAGS="-Wa,--execstack $CFLAGS"
+-  AC_TRY_COMPILE(, int main (void) {return 0;},
+-    [AC_MSG_RESULT(yes)
+-    UAE_CFLAGS="-Wa,--execstack $UAE_CFLAGS"],
+-    AC_MSG_RESULT(no)
+-  )
+-  CFLAGS="$SAVE_CFLAGS"
+ else
+   AC_MSG_RESULT(no)
+ fi
