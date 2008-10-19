@@ -1,6 +1,6 @@
 Name:           e-uae
 Version:        0.8.29
-Release:        0.10.wip4%{?dist}
+Release:        0.11.wip4%{?dist}
 Summary:        A powerful Amiga Emulator, based on UAE
 Group:          Applications/Emulators
 License:        GPLv2+
@@ -14,12 +14,14 @@ Patch2:         %{name}-0.8.29-execstack.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  desktop-file-utils
 BuildRequires:  gtk2-devel => 2.0.0
-BuildRequires:  libcapsimage-devel => 2.0.0
 BuildRequires:  libICE-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  pkgconfig
 BuildRequires:  SDL-devel => 1.2.0
 BuildRequires:  zlib-devel
+%ifarch %{ix86} x86_64 ppc 
+BuildRequires:  libcapsimage-devel => 2.0.0
+%endif
 Requires:       hicolor-icon-theme
 Requires:       policycoreutils
 
@@ -59,14 +61,23 @@ chmod -x src/crc32.c
 # --enable-natmem : Defaults to yes on Linux
 # --enable-autoconfig : Defaults to yes if threads enabled (they should be)
 # --enable-fdi : Defaults to on
+%ifarch %{ix86} x86_64 ppc
 %configure --enable-bsdsock-new \
            --enable-ui \
            --enable-audio \
+           --with-sdl \
+           --with-sdl-gfx \
+           --with-sdl-sound \
            --with-caps \
-           --with-caps-prefix=/usr \
+           --with-caps-prefix=/usr 
+%else
+%configure --enable-bsdsock-new \
+           --enable-ui \
+           --enable-audio \
            --with-sdl \
            --with-sdl-gfx \
            --with-sdl-sound
+%endif
 
 # Don't use parallel building (%%{?_smp_mflags}) seems broken in some cases
 make
@@ -138,6 +149,9 @@ fi
 
 
 %changelog
+* Sun Oct 19 2008 Andrea Musuruane <musuruan@gmail.com> 0.8.29-0.11.wip4
+- fix libcapsimage support (available only for i686, x86_64 and ppc)
+
 * Sun Oct 05 2008 Andrea Musuruane <musuruan@gmail.com> 0.8.29-0.10.wip4
 - addedd a patch from upstream not to require an executable stack
 - added an SELinux context because uae requires an executable heap
