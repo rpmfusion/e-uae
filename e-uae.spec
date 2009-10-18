@@ -1,6 +1,6 @@
 Name:           e-uae
 Version:        0.8.29
-Release:        0.11.wip4%{?dist}
+Release:        0.13.wip4%{?dist}
 Summary:        A powerful Amiga Emulator, based on UAE
 Group:          Applications/Emulators
 License:        GPLv2+
@@ -11,6 +11,8 @@ Patch0:         %{name}-0.8.29-irqfixes.patch
 Patch1:         %{name}-0.8.29-hardfilefixes.patch
 # patch from upstream not to require an executable stack
 Patch2:         %{name}-0.8.29-execstack.patch
+# patch from upstream to fix a 64bit gtk+ bug
+Patch3:         %{name}-0.8.29-gtk_64bit.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  desktop-file-utils
 BuildRequires:  gtk2-devel => 2.0.0
@@ -39,6 +41,7 @@ the 68060 as well as the FPUs.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 # Encoding fixes
 iconv -f iso8859-1 ChangeLog -t utf8 > ChangeLog.conv && /bin/mv -f ChangeLog.conv ChangeLog
@@ -149,6 +152,12 @@ fi
 
 
 %changelog
+* Sun Oct 18 2009 Andrea Musuruane <musuruan@gmail.com> 0.8.29-0.13.wip4
+- fixed a 64bit gtk+ bug causing a segfault (BZ #850)
+
+* Sun Mar 29 2009 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 0.8.29-0.12.wip4
+- rebuild for new F11 features
+
 * Sun Oct 19 2008 Andrea Musuruane <musuruan@gmail.com> 0.8.29-0.11.wip4
 - fix libcapsimage support (available only for i686, x86_64 and ppc)
 
