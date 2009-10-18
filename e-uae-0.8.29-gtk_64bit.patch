@@ -1,0 +1,203 @@
+diff -ur e-uae-0.8.29-WIP4/src/gui-gtk/chipsetspeedpanel.c e-uae-0.8.29-WIP4_new/src/gui-gtk/chipsetspeedpanel.c
+--- e-uae-0.8.29-WIP4/src/gui-gtk/chipsetspeedpanel.c	2006-06-15 01:08:02.000000000 -0400
++++ e-uae-0.8.29-WIP4_new/src/gui-gtk/chipsetspeedpanel.c	2009-10-17 19:17:59.000000000 -0400
+@@ -30,9 +30,9 @@
+ static void on_sprite_collisions_changed (GtkWidget *w, ChipsetSpeedPanel *panel);
+ static void on_immediate_blits_changed (GtkWidget *w, ChipsetSpeedPanel *panel);
+ 
+-guint chipsetspeedpanel_get_type (void)
++GtkType chipsetspeedpanel_get_type (void)
+ {
+-    static guint chipsetspeedpanel_type = 0;
++    static GtkType chipsetspeedpanel_type = 0;
+ 
+     if (!chipsetspeedpanel_type) {
+ 	static const GtkTypeInfo chipsetspeedpanel_info = {
+diff -ur e-uae-0.8.29-WIP4/src/gui-gtk/chipsetspeedpanel.h e-uae-0.8.29-WIP4_new/src/gui-gtk/chipsetspeedpanel.h
+--- e-uae-0.8.29-WIP4/src/gui-gtk/chipsetspeedpanel.h	2005-09-03 00:14:02.000000000 -0500
++++ e-uae-0.8.29-WIP4_new/src/gui-gtk/chipsetspeedpanel.h	2009-10-17 19:17:45.000000000 -0400
+@@ -41,7 +41,7 @@
+   void (* chipsetspeedpanel) (ChipsetSpeedPanel *chipsetspeedpanel );
+ };
+ 
+-guint		chipsetspeedpanel_get_type	  (void);
++GtkType		chipsetspeedpanel_get_type	  (void);
+ GtkWidget*	chipsetspeedpanel_new		  (void);
+ 
+ void chipsetspeedpanel_set_framerate		  (ChipsetSpeedPanel *panel, guint framerate);
+Only in e-uae-0.8.29-WIP4_new/src/gui-gtk/: chipsetspeedpanel.o
+diff -ur e-uae-0.8.29-WIP4/src/gui-gtk/chipsettypepanel.c e-uae-0.8.29-WIP4_new/src/gui-gtk/chipsettypepanel.c
+--- e-uae-0.8.29-WIP4/src/gui-gtk/chipsettypepanel.c	2006-06-15 01:08:03.000000000 -0400
++++ e-uae-0.8.29-WIP4_new/src/gui-gtk/chipsettypepanel.c	2009-10-17 19:18:18.000000000 -0400
+@@ -29,9 +29,9 @@
+ static void on_frequency_changed (GtkWidget *w, ChipsetTypePanel *panel);
+ 
+ 
+-guint chipsettypepanel_get_type (void)
++GtkType chipsettypepanel_get_type (void)
+ {
+-    static guint chipsettypepanel_type = 0;
++    static GtkType chipsettypepanel_type = 0;
+ 
+     if (!chipsettypepanel_type) {
+ 	static const GtkTypeInfo chipsettypepanel_info = {
+diff -ur e-uae-0.8.29-WIP4/src/gui-gtk/chipsettypepanel.h e-uae-0.8.29-WIP4_new/src/gui-gtk/chipsettypepanel.h
+--- e-uae-0.8.29-WIP4/src/gui-gtk/chipsettypepanel.h	2004-10-17 02:50:34.000000000 -0500
++++ e-uae-0.8.29-WIP4_new/src/gui-gtk/chipsettypepanel.h	2009-10-17 19:18:36.000000000 -0400
+@@ -34,7 +34,7 @@
+   void (* chipsettypepanel) (ChipsetTypePanel *chipsettypepanel );
+ };
+ 
+-guint		chipsettypepanel_get_type	  (void);
++GtkType		chipsettypepanel_get_type	  (void);
+ GtkWidget*	chipsettypepanel_new		  (void);
+ void            chipsettypepanel_set_chipset_mask (ChipsetTypePanel *panel, guint chipset_mask);
+ void            chipsettypepanel_set_ntscmode     (ChipsetTypePanel *panel, guint ntscmode);   
+Only in e-uae-0.8.29-WIP4_new/src/gui-gtk/: chipsettypepanel.o
+diff -ur e-uae-0.8.29-WIP4/src/gui-gtk/chooserwidget.c e-uae-0.8.29-WIP4_new/src/gui-gtk/chooserwidget.c
+--- e-uae-0.8.29-WIP4/src/gui-gtk/chooserwidget.c	2006-06-15 01:08:03.000000000 -0400
++++ e-uae-0.8.29-WIP4_new/src/gui-gtk/chooserwidget.c	2009-10-17 19:20:52.000000000 -0400
+@@ -20,9 +20,9 @@
+ static guint chooser_get_choice_num (ChooserWidget *chooser);
+ static void on_choice_changed (GtkWidget *w, ChooserWidget *chooser);
+ 
+-guint chooserwidget_get_type ()
++GtkType chooserwidget_get_type ()
+ {
+-    static guint chooserwidget_type = 0;
++    static GtkType chooserwidget_type = 0;
+ 
+     if (!chooserwidget_type) {
+ 	static const GtkTypeInfo chooserwidget_info = {
+diff -ur e-uae-0.8.29-WIP4/src/gui-gtk/chooserwidget.h e-uae-0.8.29-WIP4_new/src/gui-gtk/chooserwidget.h
+--- e-uae-0.8.29-WIP4/src/gui-gtk/chooserwidget.h	2004-05-18 20:22:03.000000000 -0500
++++ e-uae-0.8.29-WIP4_new/src/gui-gtk/chooserwidget.h	2009-10-17 19:21:01.000000000 -0400
+@@ -35,7 +35,7 @@
+     void (* chooserwidget) (ChooserWidget *chooserwidget);
+ };
+ 
+-guint		chooserwidget_get_type		(void);
++GtkType		chooserwidget_get_type		(void);
+ GtkWidget*	chooserwidget_new		(void);
+ void		chooserwidget_clear		(ChooserWidget *chooser);
+ void		chooserwidget_set_choice	(ChooserWidget *chooser, guint choice_num);
+Only in e-uae-0.8.29-WIP4_new/src/gui-gtk/: chooserwidget.o
+diff -ur e-uae-0.8.29-WIP4/src/gui-gtk/cpuspeedpanel.c e-uae-0.8.29-WIP4_new/src/gui-gtk/cpuspeedpanel.c
+--- e-uae-0.8.29-WIP4/src/gui-gtk/cpuspeedpanel.c	2007-03-12 16:21:17.000000000 -0400
++++ e-uae-0.8.29-WIP4_new/src/gui-gtk/cpuspeedpanel.c	2009-10-17 19:16:59.000000000 -0400
+@@ -24,9 +24,9 @@
+ static void on_idleenabled_toggled (GtkWidget *w, CpuSpeedPanel *cspanel);
+ static void on_idlerate_changed (GtkWidget *w, CpuSpeedPanel *cspanel);
+ 
+-guint cpuspeedpanel_get_type ()
++GtkType cpuspeedpanel_get_type ()
+ {
+-    static guint cpuspeedpanel_type = 0;
++    static GtkType cpuspeedpanel_type = 0;
+ 
+     if (!cpuspeedpanel_type) {
+ 	static const GtkTypeInfo cpuspeedpanel_info = {
+diff -ur e-uae-0.8.29-WIP4/src/gui-gtk/cpuspeedpanel.h e-uae-0.8.29-WIP4_new/src/gui-gtk/cpuspeedpanel.h
+--- e-uae-0.8.29-WIP4/src/gui-gtk/cpuspeedpanel.h	2007-03-12 16:21:17.000000000 -0400
++++ e-uae-0.8.29-WIP4_new/src/gui-gtk/cpuspeedpanel.h	2009-10-17 19:17:14.000000000 -0400
+@@ -45,7 +45,7 @@
+     void (* cpuspeedpanel) (CpuSpeedPanel *cpuspeedpanel );
+ };
+ 
+-guint		cpuspeedpanel_get_type		(void);
++GtkType		cpuspeedpanel_get_type		(void);
+ GtkWidget*	cpuspeedpanel_new		(void);
+ void		cpuspeedpanel_set_cpuspeed	(CpuSpeedPanel *cspanel, gint cpuspeed);
+ void		cpuspeedpanel_set_cpulevel	(CpuSpeedPanel *cspanel, guint cpulevel);
+Only in e-uae-0.8.29-WIP4_new/src/gui-gtk/: cpuspeedpanel.o
+diff -ur e-uae-0.8.29-WIP4/src/gui-gtk/cputypepanel.c e-uae-0.8.29-WIP4_new/src/gui-gtk/cputypepanel.c
+--- e-uae-0.8.29-WIP4/src/gui-gtk/cputypepanel.c	2006-06-15 01:08:03.000000000 -0400
++++ e-uae-0.8.29-WIP4_new/src/gui-gtk/cputypepanel.c	2009-10-17 19:16:27.000000000 -0400
+@@ -24,9 +24,9 @@
+ static void on_fpuenabled_toggled (GtkWidget *w, CpuTypePanel *ctpanel);
+ static void on_accuracy_changed (GtkWidget *w, CpuTypePanel *ctpanel);
+ 
+-guint cputypepanel_get_type ()
++GtkType cputypepanel_get_type ()
+ {
+-    static guint cputypepanel_type = 0;
++    static GtkType cputypepanel_type = 0;
+ 
+     if (!cputypepanel_type) {
+ 	static const GtkTypeInfo cputypepanel_info = {
+diff -ur e-uae-0.8.29-WIP4/src/gui-gtk/cputypepanel.h e-uae-0.8.29-WIP4_new/src/gui-gtk/cputypepanel.h
+--- e-uae-0.8.29-WIP4/src/gui-gtk/cputypepanel.h	2004-05-18 20:22:03.000000000 -0500
++++ e-uae-0.8.29-WIP4_new/src/gui-gtk/cputypepanel.h	2009-10-17 19:16:10.000000000 -0400
+@@ -38,7 +38,7 @@
+   void (* cputypepanel) (CpuTypePanel *cputypepanel );
+ };
+ 
+-guint		cputypepanel_get_type		(void);
++GtkType		cputypepanel_get_type		(void);
+ GtkWidget*	cputypepanel_new		(void);
+ void		cputypepanel_set_cpulevel	(CpuTypePanel *ctpanel, guint cpulevel);
+ void		cputypepanel_set_addr24bit	(CpuTypePanel *ctpanel, guint addr24bit);
+Only in e-uae-0.8.29-WIP4_new/src/gui-gtk/: cputypepanel.o
+Only in e-uae-0.8.29-WIP4_new/src/gui-gtk/: .deps
+diff -ur e-uae-0.8.29-WIP4/src/gui-gtk/floppyfileentry.c e-uae-0.8.29-WIP4_new/src/gui-gtk/floppyfileentry.c
+--- e-uae-0.8.29-WIP4/src/gui-gtk/floppyfileentry.c	2006-06-15 01:08:03.000000000 -0400
++++ e-uae-0.8.29-WIP4_new/src/gui-gtk/floppyfileentry.c	2009-10-17 19:14:37.000000000 -0400
+@@ -22,9 +22,9 @@
+ static void on_eject (GtkWidget *w, FloppyFileEntry *ffe);
+ static void on_insert (GtkWidget *w, FloppyFileEntry *ffe);
+ 
+-guint floppyfileentry_get_type ()
++GtkType floppyfileentry_get_type ()
+ {
+-    static guint floppyfileentry_type = 0;
++    static GtkType floppyfileentry_type = 0;
+ 
+     if (!floppyfileentry_type) {
+ 	static const GtkTypeInfo floppyfileentry_info = {
+diff -ur e-uae-0.8.29-WIP4/src/gui-gtk/floppyfileentry.h e-uae-0.8.29-WIP4_new/src/gui-gtk/floppyfileentry.h
+--- e-uae-0.8.29-WIP4/src/gui-gtk/floppyfileentry.h	2004-11-17 13:26:41.000000000 -0500
++++ e-uae-0.8.29-WIP4_new/src/gui-gtk/floppyfileentry.h	2009-10-17 19:14:20.000000000 -0400
+@@ -38,7 +38,7 @@
+   void (* floppyfileentry) (FloppyFileEntry *floppyfileentry);
+ };
+ 
+-guint			floppyfileentry_get_type	(void);
++GtkType			floppyfileentry_get_type	(void);
+ GtkWidget*		floppyfileentry_new		(void);
+ void			floppyfileentry_set_currentdir	(FloppyFileEntry *ffentry, const gchar *filename);
+ void			floppyfileentry_set_filename	(FloppyFileEntry *ffentry, const gchar *filename);
+Only in e-uae-0.8.29-WIP4_new/src/gui-gtk/: floppyfileentry.o
+Only in e-uae-0.8.29-WIP4_new/src/gui-gtk/: gtkui.o
+diff -ur e-uae-0.8.29-WIP4/src/gui-gtk/led.c e-uae-0.8.29-WIP4_new/src/gui-gtk/led.c
+--- e-uae-0.8.29-WIP4/src/gui-gtk/led.c	2006-07-18 01:23:18.000000000 -0400
++++ e-uae-0.8.29-WIP4_new/src/gui-gtk/led.c	2009-10-17 21:34:02.000000000 -0400
+@@ -29,9 +29,9 @@
+ static void led_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
+ 
+ 
+-guint led_get_type ()
++GtkType led_get_type ()
+ {
+-    static guint led_type = 0;
++    static GtkType led_type = 0;
+ 
+     if (!led_type) {
+ 	static const GtkTypeInfo led_info = {
+Only in e-uae-0.8.29-WIP4_new/src/gui-gtk/: led.c~
+diff -ur e-uae-0.8.29-WIP4/src/gui-gtk/led.h e-uae-0.8.29-WIP4_new/src/gui-gtk/led.h
+--- e-uae-0.8.29-WIP4/src/gui-gtk/led.h	2006-07-18 01:23:18.000000000 -0400
++++ e-uae-0.8.29-WIP4_new/src/gui-gtk/led.h	2009-10-17 21:32:56.000000000 -0400
+@@ -38,7 +38,7 @@
+   GtkWidgetClass parent_class;
+ };
+ 
+-guint			led_get_type	(void);
++GtkType			led_get_type	(void);
+ GtkWidget*		led_new		(void);
+ void			led_set_off	(Led *theled);
+ void			led_set_color	(Led *theled, GdkColor col);
+Only in e-uae-0.8.29-WIP4_new/src/gui-gtk/: led.h~
+Only in e-uae-0.8.29-WIP4_new/src/gui-gtk/: led.o
+Only in e-uae-0.8.29-WIP4_new/src/gui-gtk/: libguidep.a
+Only in e-uae-0.8.29-WIP4_new/src/gui-gtk/: Makefile
+Only in e-uae-0.8.29-WIP4_new/src/gui-gtk/: util.o
