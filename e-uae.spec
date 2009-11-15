@@ -1,6 +1,6 @@
 Name:           e-uae
 Version:        0.8.29
-Release:        0.13.wip4%{?dist}
+Release:        0.14.wip4%{?dist}
 Summary:        A powerful Amiga Emulator, based on UAE
 Group:          Applications/Emulators
 License:        GPLv2+
@@ -65,6 +65,8 @@ chmod -x src/crc32.c
 # --enable-autoconfig : Defaults to yes if threads enabled (they should be)
 # --enable-fdi : Defaults to on
 %ifarch %{ix86} x86_64 ppc
+# Fix for libcaps support
+export LDFLAGS=-lstdc++
 %configure --enable-bsdsock-new \
            --enable-ui \
            --enable-audio \
@@ -152,6 +154,9 @@ fi
 
 
 %changelog
+* Sun Nov 15 2009 Ian Chapman <packages[AT]amiga-hardware.com> 0.8.29-0.14.wip4
+- Work around fix for libcaps support
+
 * Sun Oct 18 2009 Andrea Musuruane <musuruan@gmail.com> 0.8.29-0.13.wip4
 - fixed a 64bit gtk+ bug causing a segfault (BZ #850)
 
