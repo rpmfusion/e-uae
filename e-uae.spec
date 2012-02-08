@@ -1,6 +1,6 @@
 Name:           e-uae
 Version:        0.8.29
-Release:        0.14.wip4%{?dist}
+Release:        0.15.wip4%{?dist}
 Summary:        A powerful Amiga Emulator, based on UAE
 Group:          Applications/Emulators
 License:        GPLv2+
@@ -154,6 +154,9 @@ fi
 
 
 %changelog
+* Thu Feb 09 2012 Nicolas Chauvet <kwizart@gmail.com> - 0.8.29-0.15.wip4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
 * Sun Nov 15 2009 Ian Chapman <packages[AT]amiga-hardware.com> 0.8.29-0.14.wip4
 - Work around fix for libcaps support
 
