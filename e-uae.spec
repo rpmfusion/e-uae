@@ -1,8 +1,8 @@
 Name:           e-uae
 Version:        0.8.29
-Release:        0.17.wip4%{?dist}
+Release:        0.19.wip4%{?dist}
 Summary:        A powerful Amiga Emulator, based on UAE
-Group:          Applications/Emulators
+
 License:        GPLv2+
 URL:            http://www.rcdrummond.net/uae/
 Source0:        http://www.rcdrummond.net/uae/%{name}-%{version}-WIP4/%{name}-%{version}-WIP4.tar.bz2
@@ -13,7 +13,15 @@ Patch1:         %{name}-0.8.29-hardfilefixes.patch
 Patch2:         %{name}-0.8.29-execstack.patch
 # patch from upstream to fix a 64bit gtk+ bug
 Patch3:         %{name}-0.8.29-gtk_64bit.patch
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+# patch from upstream to fix some new compiler warnings in GCC 4.3
+Patch4:         %{name}-0.8.29-fix-do-while-0.patch
+# patch from mandriva to fix string bugs (made by codebase7 AT yahoo DOT com)
+Patch5:         %{name}-0.8.29-fix-string-format-bug.patch
+# patch from Keir Fraser to fix blitter handling when an active channel's 
+# address is zero
+# https://github.com/keirf/e-uae/commit/1447891c79277a7f9a931c76881172618f4ba474.patch
+Patch6:         %{name}-0.8.29-blitter.patch
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  gtk2-devel => 2.0.0
 BuildRequires:  libICE-devel
@@ -42,12 +50,24 @@ the 68060 as well as the FPUs.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
+%patch5 -p0
+%patch6 -p1
+
+# Delete -Wno-format from WARNING_CFLAGS in configure
+sed -i 's/-Wno-format //' configure configure.in
 
 # Encoding fixes
 iconv -f iso8859-1 ChangeLog -t utf8 > ChangeLog.conv && /bin/mv -f ChangeLog.conv ChangeLog
 
 # Permission fixes
-chmod -x src/crc32.c
+chmod -x src/crc32.c src/include/crc32.h src/include/caps.h
+
+# Fix end-of-line encoding
+for txtfile in src/include/crc32.h src/include/caps.h
+do
+    sed -i 's/\r//' $txtfile
+done
 
 
 %build
@@ -64,6 +84,7 @@ chmod -x src/crc32.c
 # --enable-natmem : Defaults to yes on Linux
 # --enable-autoconfig : Defaults to yes if threads enabled (they should be)
 # --enable-fdi : Defaults to on
+
 %ifarch %{ix86} x86_64 ppc
 # Fix for libcaps support
 export LDFLAGS=-lstdc++
@@ -103,25 +124,17 @@ EOF
 
 
 %install
-rm -rf %{buildroot}
 make install DESTDIR=%{buildroot}
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/48x48/apps
 install -pm0644 %{SOURCE1} %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/%{name}.png
 
-desktop-file-install --vendor dribble \
-                     --dir %{buildroot}%{_datadir}/applications \
-                     %{name}.desktop
-
-
-%clean
-rm -rf %{buildroot}
+desktop-file-install \
+  --dir %{buildroot}%{_datadir}/applications \
+   %{name}.desktop
 
 
 %post
-touch --no-create %{_datadir}/icons/hicolor
-if [ -x %{_bindir}/gtk-update-icon-cache ]; then
-   %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
-fi
+/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 
 # SELinux support
 %ifarch %{ix86}
@@ -131,9 +144,9 @@ restorecon -R %{_bindir}/uae
 
 
 %postun
-touch --no-create %{_datadir}/icons/hicolor
-if [ -x %{_bindir}/gtk-update-icon-cache ]; then
-   %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
+if [ $1 -eq 0 ] ; then
+    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 fi
 
 # SELinux support
@@ -144,16 +157,35 @@ fi
 %endif
 
 
+%posttrans
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+
+
 %files
-%defattr(-,root,root,-)
 %{_bindir}/uae
 %{_bindir}/readdisk
-%{_datadir}/applications/dribble-e-uae.desktop
+%{_datadir}/applications/e-uae.desktop
 %{_datadir}/icons/hicolor/48x48/apps/%{name}.png
 %doc docs/* ChangeLog COPYING README
 
 
 %changelog
+* Wed Sep 03 2014 Andrea Musuruane <musuruan@gmail.com> - 0.8.29-0.19.wip4
+- Fix FTBFS because of -Wno-format flag
+- Added a patch to fix some new compiler warnings in GCC 4.3
+- Added a patch to fix string bugs
+- Added a patch to fix blitter handling when an active channel's address
+  is zero
+- Dropped desktop vendor tag
+- Dropped obsolete Group, Buildroot, %%clean and %%defattr
+- Dropped cleaning at the beginning of %%install
+- Updated icon cache scriptlets
+- Fix file permissions
+- Fix end-of-line encoding
+
+* Sun Aug 31 2014 Sérgio Basto <sergio@serjux.com> - 0.8.29-0.18.wip4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
+
 * Tue Mar 12 2013 Nicolas Chauvet <kwizart@gmail.com> - 0.8.29-0.17.wip4
 - https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 

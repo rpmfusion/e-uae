@@ -1,0 +1,64 @@
+From 37a95d052b08b40877d5594dc2331af8c7a136dc Mon Sep 17 00:00:00 2001
+From: Keir <keir.xen@gmail.com>
+Date: Wed, 22 Jan 2014 11:00:29 +0000
+Subject: [PATCH] fix-do-while-0
+
+---
+ src/bsdsocket-posix-new.c | 2 +-
+ src/gfx-sdl/sdlgfx.c      | 2 +-
+ src/gui-gtk/gtkui.c       | 2 +-
+ src/hardfile_unix.c       | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/src/bsdsocket-posix-new.c b/src/bsdsocket-posix-new.c
+index ded82a7..1e76869 100644
+--- a/src/bsdsocket-posix-new.c
++++ b/src/bsdsocket-posix-new.c
+@@ -56,7 +56,7 @@
+ #ifdef DEBUG_BSDSOCKET
+ #define DEBUG_LOG write_log
+ #else
+-#define DEBUG_LOG(...) do ; while(0)
++#define DEBUG_LOG(...) do {} while(0)
+ #endif
+ 
+ #define WAITSIGNAL	waitsig (context, sb)
+diff --git a/src/gfx-sdl/sdlgfx.c b/src/gfx-sdl/sdlgfx.c
+index 5615ed0..63de75f 100644
+--- a/src/gfx-sdl/sdlgfx.c
++++ b/src/gfx-sdl/sdlgfx.c
+@@ -52,7 +52,7 @@
+ #ifdef DEBUG
+ #define DEBUG_LOG write_log
+ #else
+-#define DEBUG_LOG(...) do ; while(0)
++#define DEBUG_LOG(...) do {} while(0)
+ #endif
+ 
+ static SDL_Surface *display;
+diff --git a/src/gui-gtk/gtkui.c b/src/gui-gtk/gtkui.c
+index 8a4f264..6cae5cc 100644
+--- a/src/gui-gtk/gtkui.c
++++ b/src/gui-gtk/gtkui.c
+@@ -49,7 +49,7 @@
+ #ifdef  GUI_DEBUG
+ #define DEBUG_LOG write_log( "%s: ", __func__); write_log
+ #else
+-#define DEBUG_LOG(...) do ; while(0)
++#define DEBUG_LOG(...) do {} while(0)
+ #endif
+ 
+ static int gui_active;
+diff --git a/src/hardfile_unix.c b/src/hardfile_unix.c
+index 34420a0..5f8b9c3 100644
+--- a/src/hardfile_unix.c
++++ b/src/hardfile_unix.c
+@@ -16,7 +16,7 @@
+ #ifdef  HDF_DEBUG
+ #define DEBUG_LOG write_log( "%s: ", __func__); write_log
+ #else
+-#define DEBUG_LOG(...) do ; while(0)
++#define DEBUG_LOG(...) do {} while(0)
+ #endif
+ 
+ 
