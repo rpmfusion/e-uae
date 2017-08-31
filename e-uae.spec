@@ -1,6 +1,6 @@
 Name:           e-uae
 Version:        0.8.29
-Release:        0.19.wip4%{?dist}
+Release:        0.20.wip4%{?dist}
 Summary:        A powerful Amiga Emulator, based on UAE
 
 License:        GPLv2+
@@ -170,6 +170,9 @@ fi
 
 
 %changelog
+* Thu Aug 31 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 0.8.29-0.20.wip4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
 * Wed Sep 03 2014 Andrea Musuruane <musuruan@gmail.com> - 0.8.29-0.19.wip4
 - Fix FTBFS because of -Wno-format flag
 - Added a patch to fix some new compiler warnings in GCC 4.3
